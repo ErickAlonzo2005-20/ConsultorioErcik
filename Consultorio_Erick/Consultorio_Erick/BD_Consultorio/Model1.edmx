@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Consultorio_Denta_ERICKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cita">
+          <Key>
+            <PropertyRef Name="CitaID" />
+          </Key>
+          <Property Name="CitaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PacienteID" Type="int" Nullable="false" />
+          <Property Name="DentistaID" Type="int" Nullable="false" />
+          <Property Name="MotivoID" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="DuracionMinutos" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dentista">
+          <Key>
+            <PropertyRef Name="DentistaID" />
+          </Key>
+          <Property Name="DentistaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Especialidad" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Motivo">
+          <Key>
+            <PropertyRef Name="MotivoID" />
+          </Key>
+          <Property Name="MotivoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Costo" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="PacienteID" />
+          </Key>
+          <Property Name="PacienteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_Cita_Dentista">
+          <End Role="Dentista" Type="Self.Dentista" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dentista">
+              <PropertyRef Name="DentistaID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="DentistaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cita_Motivo">
+          <End Role="Motivo" Type="Self.Motivo" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motivo">
+              <PropertyRef Name="MotivoID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="MotivoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cita_Paciente">
+          <End Role="Paciente" Type="Self.Paciente" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="PacienteID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="PacienteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Consultorio_Denta_ERICKModelStoreContainer">
+          <EntitySet Name="Cita" EntityType="Self.Cita" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dentista" EntityType="Self.Dentista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Motivo" EntityType="Self.Motivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paciente" EntityType="Self.Paciente" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cita_Dentista" Association="Self.FK_Cita_Dentista">
+            <End Role="Dentista" EntitySet="Dentista" />
+            <End Role="Cita" EntitySet="Cita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cita_Motivo" Association="Self.FK_Cita_Motivo">
+            <End Role="Motivo" EntitySet="Motivo" />
+            <End Role="Cita" EntitySet="Cita" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cita_Paciente" Association="Self.FK_Cita_Paciente">
+            <End Role="Paciente" EntitySet="Paciente" />
+            <End Role="Cita" EntitySet="Cita" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Consultorio_Denta_ERICKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cita">
+          <Key>
+            <PropertyRef Name="CitaID" />
+          </Key>
+          <Property Name="CitaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PacienteID" Type="Int32" Nullable="false" />
+          <Property Name="DentistaID" Type="Int32" Nullable="false" />
+          <Property Name="MotivoID" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DuracionMinutos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dentista" Relationship="Self.FK_Cita_Dentista" FromRole="Cita" ToRole="Dentista" />
+          <NavigationProperty Name="Motivo" Relationship="Self.FK_Cita_Motivo" FromRole="Cita" ToRole="Motivo" />
+          <NavigationProperty Name="Paciente" Relationship="Self.FK_Cita_Paciente" FromRole="Cita" ToRole="Paciente" />
+        </EntityType>
+        <EntityType Name="Dentista">
+          <Key>
+            <PropertyRef Name="DentistaID" />
+          </Key>
+          <Property Name="DentistaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Especialidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK_Cita_Dentista" FromRole="Dentista" ToRole="Cita" />
+        </EntityType>
+        <EntityType Name="Motivo">
+          <Key>
+            <PropertyRef Name="MotivoID" />
+          </Key>
+          <Property Name="MotivoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Costo" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK_Cita_Motivo" FromRole="Motivo" ToRole="Cita" />
+        </EntityType>
+        <EntityType Name="Paciente">
+          <Key>
+            <PropertyRef Name="PacienteID" />
+          </Key>
+          <Property Name="PacienteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Citas" Relationship="Self.FK_Cita_Paciente" FromRole="Paciente" ToRole="Cita" />
+        </EntityType>
+        <Association Name="FK_Cita_Dentista">
+          <End Role="Dentista" Type="Self.Dentista" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dentista">
+              <PropertyRef Name="DentistaID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="DentistaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cita_Motivo">
+          <End Role="Motivo" Type="Self.Motivo" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motivo">
+              <PropertyRef Name="MotivoID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="MotivoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cita_Paciente">
+          <End Role="Paciente" Type="Self.Paciente" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paciente">
+              <PropertyRef Name="PacienteID" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="PacienteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Consultorio_Denta_ERICKEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Citas" EntityType="Self.Cita" />
+          <EntitySet Name="Dentistas" EntityType="Self.Dentista" />
+          <EntitySet Name="Motivoes" EntityType="Self.Motivo" />
+          <EntitySet Name="Pacientes" EntityType="Self.Paciente" />
+          <AssociationSet Name="FK_Cita_Dentista" Association="Self.FK_Cita_Dentista">
+            <End Role="Dentista" EntitySet="Dentistas" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cita_Motivo" Association="Self.FK_Cita_Motivo">
+            <End Role="Motivo" EntitySet="Motivoes" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cita_Paciente" Association="Self.FK_Cita_Paciente">
+            <End Role="Paciente" EntitySet="Pacientes" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Consultorio_Denta_ERICKModelStoreContainer" CdmEntityContainer="Consultorio_Denta_ERICKEntities">
+          <EntitySetMapping Name="Citas">
+            <EntityTypeMapping TypeName="Consultorio_Denta_ERICKModel.Cita">
+              <MappingFragment StoreEntitySet="Cita">
+                <ScalarProperty Name="CitaID" ColumnName="CitaID" />
+                <ScalarProperty Name="PacienteID" ColumnName="PacienteID" />
+                <ScalarProperty Name="DentistaID" ColumnName="DentistaID" />
+                <ScalarProperty Name="MotivoID" ColumnName="MotivoID" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="DuracionMinutos" ColumnName="DuracionMinutos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dentistas">
+            <EntityTypeMapping TypeName="Consultorio_Denta_ERICKModel.Dentista">
+              <MappingFragment StoreEntitySet="Dentista">
+                <ScalarProperty Name="DentistaID" ColumnName="DentistaID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motivoes">
+            <EntityTypeMapping TypeName="Consultorio_Denta_ERICKModel.Motivo">
+              <MappingFragment StoreEntitySet="Motivo">
+                <ScalarProperty Name="MotivoID" ColumnName="MotivoID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pacientes">
+            <EntityTypeMapping TypeName="Consultorio_Denta_ERICKModel.Paciente">
+              <MappingFragment StoreEntitySet="Paciente">
+                <ScalarProperty Name="PacienteID" ColumnName="PacienteID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
